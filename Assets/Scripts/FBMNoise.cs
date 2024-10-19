@@ -57,7 +57,7 @@ public class FBMNoise
     public Texture2D Perlin2D(Vector2Int size, FBMParameters parameters, bool wrap)
     {
         if (size.x == 0 || size.y == 0) return null;
-        RenderTexture noise = Utility.CreateRenderTexture(size.x, size.y, 0, RenderTextureFormat.RFloat, TextureDimension.Tex2D);
+        RenderTexture noise = Utility.CreateRenderTexture(size.x, size.y, 0, RenderTextureFormat.R8, TextureDimension.Tex2D);
         
         parameters.frequency *= 4.0f / Mathf.Min(size.x, size.y);
         noiseShader.SetTexture(K_PERLIN_NOISE_2D, P_NOISE2D, noise);
@@ -65,7 +65,7 @@ public class FBMNoise
         noiseShader.SetBool(P_WRAP, wrap);
         noiseShader.Dispatch(K_PERLIN_NOISE_2D, Mathf.Max(1, size.x >> 3), Mathf.Max(1, size.y >> 3), 1);
         
-        Texture2D tex = CreateTexture(size.x, size.y, 0, TextureFormat.RFloat, TextureDimension.Tex2D) as Texture2D;
+        Texture2D tex = CreateTexture(size.x, size.y, 0, TextureFormat.R8, TextureDimension.Tex2D) as Texture2D;
         Utility.ReadRT2D(noise, tex);
         return tex;
     }
@@ -85,7 +85,7 @@ public class FBMNoise
     public Texture3D Perlin3D(Vector3Int size, FBMParameters parameters, bool wrap)
     {
         if (size.x == 0 || size.y == 0 || size.z == 0) return null;
-        RenderTexture noise = Utility.CreateRenderTexture(size.x, size.y, size.z, RenderTextureFormat.RFloat, TextureDimension.Tex3D);
+        RenderTexture noise = Utility.CreateRenderTexture(size.x, size.y, size.z, RenderTextureFormat.R8, TextureDimension.Tex3D);
         
         parameters.frequency *= 4.0f / Mathf.Max(size.z, Mathf.Min(size.x, size.y));
         noiseShader.SetTexture(K_PERLIN_NOISE_3D, P_NOISE3D, noise);
@@ -93,8 +93,8 @@ public class FBMNoise
         noiseShader.SetBool(P_WRAP, wrap);
         noiseShader.Dispatch(K_PERLIN_NOISE_3D, Mathf.Max(1, size.x >> 3), Mathf.Max(1, size.y >> 3), size.z);
         
-        Texture3D tex = CreateTexture(size.x, size.y, size.z, TextureFormat.RFloat, TextureDimension.Tex3D) as Texture3D;
-        Utility.ReadRT3D(noise, tex, 4);
+        Texture3D tex = CreateTexture(size.x, size.y, size.z, TextureFormat.R8, TextureDimension.Tex3D) as Texture3D;
+        Utility.ReadRT3D<float>(noise, tex);
         return tex;
     }
     
@@ -113,7 +113,7 @@ public class FBMNoise
     public Texture2D Worley2D(Vector2Int size, FBMParameters parameters, bool wrap)
     {
         if (size.x == 0 || size.y == 0) return null;
-        RenderTexture noise = Utility.CreateRenderTexture(size.x, size.y, 0, RenderTextureFormat.RFloat, TextureDimension.Tex2D);
+        RenderTexture noise = Utility.CreateRenderTexture(size.x, size.y, 0, RenderTextureFormat.R8, TextureDimension.Tex2D);
 
         parameters.frequency *= 4.0f / Mathf.Min(size.x, size.y);
         noiseShader.SetTexture(K_WORLEY_NOISE_2D, P_NOISE2D, noise);
@@ -121,7 +121,7 @@ public class FBMNoise
         noiseShader.SetBool(P_WRAP, wrap);
         noiseShader.Dispatch(K_WORLEY_NOISE_2D, Mathf.Max(1, size.x >> 3), Mathf.Max(1, size.y >> 3), 1);
         
-        Texture2D tex = CreateTexture(size.x, size.y, 0, TextureFormat.RFloat, TextureDimension.Tex2D) as Texture2D;
+        Texture2D tex = CreateTexture(size.x, size.y, 0, TextureFormat.R8, TextureDimension.Tex2D) as Texture2D;
         Utility.ReadRT2D(noise, tex);
         return tex;
     }
@@ -141,7 +141,7 @@ public class FBMNoise
     public Texture3D Worley3D(Vector3Int size, FBMParameters parameters, bool wrap)
     {
         if (size.x == 0 || size.y == 0 || size.z == 0) return null;
-        RenderTexture noise = Utility.CreateRenderTexture(size.x, size.y, size.z, RenderTextureFormat.RFloat, TextureDimension.Tex3D);
+        RenderTexture noise = Utility.CreateRenderTexture(size.x, size.y, size.z, RenderTextureFormat.R8, TextureDimension.Tex3D);
         
         parameters.frequency *= 4.0f / Mathf.Max(size.z, Mathf.Min(size.x, size.y));
         noiseShader.SetTexture(K_WORLEY_NOISE_3D, P_NOISE3D, noise);
@@ -149,8 +149,8 @@ public class FBMNoise
         noiseShader.SetBool(P_WRAP, wrap);
         noiseShader.Dispatch(K_WORLEY_NOISE_3D, Mathf.Max(1, size.x >> 3), Mathf.Max(1, size.y >> 3), size.z);
         
-        Texture3D tex = CreateTexture(size.x, size.y, size.z, TextureFormat.RFloat, TextureDimension.Tex3D) as Texture3D;
-        Utility.ReadRT3D(noise, tex, 4);
+        Texture3D tex = CreateTexture(size.x, size.y, size.z, TextureFormat.R8, TextureDimension.Tex3D) as Texture3D;
+        Utility.ReadRT3D<float>(noise, tex);
         return tex;
     }
     
@@ -169,7 +169,7 @@ public class FBMNoise
     public Texture2D PerlinWorley2D(Vector2Int size, FBMParameters parameters, bool wrap)
     {
         if (size.x == 0 || size.y == 0) return null;
-        RenderTexture noise = Utility.CreateRenderTexture(size.x, size.y, 0, RenderTextureFormat.RFloat, TextureDimension.Tex2D);
+        RenderTexture noise = Utility.CreateRenderTexture(size.x, size.y, 0, RenderTextureFormat.R8, TextureDimension.Tex2D);
 
         parameters.frequency *= 4.0f / Mathf.Min(size.x, size.y);
         noiseShader.SetTexture(K_PERLIN_WORLEY_NOISE_2D, P_NOISE2D, noise);
@@ -177,7 +177,7 @@ public class FBMNoise
         noiseShader.SetBool(P_WRAP, wrap);
         noiseShader.Dispatch(K_PERLIN_WORLEY_NOISE_2D, Mathf.Max(1, size.x >> 3), Mathf.Max(1, size.y >> 3), 1);
         
-        Texture2D tex = CreateTexture(size.x, size.y, 0, TextureFormat.RFloat, TextureDimension.Tex2D) as Texture2D;
+        Texture2D tex = CreateTexture(size.x, size.y, 0, TextureFormat.R8, TextureDimension.Tex2D) as Texture2D;
         Utility.ReadRT2D(noise, tex);
         return tex;
     }
@@ -197,7 +197,7 @@ public class FBMNoise
     public Texture3D PerlinWorley3D(Vector3Int size, FBMParameters parameters, bool wrap)
     {
         if (size.x == 0 || size.y == 0 || size.z == 0) return null;
-        RenderTexture noise = Utility.CreateRenderTexture(size.x, size.y, size.z, RenderTextureFormat.RFloat, TextureDimension.Tex3D);
+        RenderTexture noise = Utility.CreateRenderTexture(size.x, size.y, size.z, RenderTextureFormat.R8, TextureDimension.Tex3D);
         
         parameters.frequency *= 4.0f / Mathf.Max(size.z, Mathf.Min(size.x, size.y));
         noiseShader.SetTexture(K_PERLIN_WORLEY_NOISE_3D, P_NOISE3D, noise);
@@ -205,8 +205,8 @@ public class FBMNoise
         noiseShader.SetBool(P_WRAP, wrap);
         noiseShader.Dispatch(K_PERLIN_WORLEY_NOISE_3D, Mathf.Max(1, size.x >> 3), Mathf.Max(1, size.y >> 3), size.z);
         
-        Texture3D tex = CreateTexture(size.x, size.y, size.z, TextureFormat.RFloat, TextureDimension.Tex3D) as Texture3D;
-        Utility.ReadRT3D(noise, tex, 4);
+        Texture3D tex = CreateTexture(size.x, size.y, size.z, TextureFormat.R8, TextureDimension.Tex3D) as Texture3D;
+        Utility.ReadRT3D<float>(noise, tex);
         return tex;
     }
     
@@ -225,14 +225,14 @@ public class FBMNoise
     public Texture2D Simplex2D(Vector3Int size, FBMParameters parameters)
     {
         if (size.x == 0 || size.y == 0) return null;
-        RenderTexture noise = Utility.CreateRenderTexture(size.x, size.y, 0, RenderTextureFormat.RFloat, TextureDimension.Tex2D);
+        RenderTexture noise = Utility.CreateRenderTexture(size.x, size.y, 0, RenderTextureFormat.R8, TextureDimension.Tex2D);
 
         parameters.frequency *= 4.0f / Mathf.Min(size.x, size.y);
         noiseShader.SetTexture(K_SIMPLEX_NOISE_2D, P_NOISE2D, noise);
         SetFBMParameters(ref parameters, size.x, size.y);
         noiseShader.Dispatch(K_SIMPLEX_NOISE_2D, Mathf.Max(1, size.x >> 3), Mathf.Max(1, size.y >> 3), 1);
         
-        Texture2D tex = CreateTexture(size.x, size.y, 0, TextureFormat.RFloat, TextureDimension.Tex2D) as Texture2D;
+        Texture2D tex = CreateTexture(size.x, size.y, 0, TextureFormat.R8, TextureDimension.Tex2D) as Texture2D;
         Utility.ReadRT2D(noise, tex);
         return tex;
     }

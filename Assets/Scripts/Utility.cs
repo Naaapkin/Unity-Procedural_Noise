@@ -38,9 +38,9 @@ public class Utility
         return rt;
     }
     
-    public static void ReadRT3D(RenderTexture rt, Texture3D tex, int pixelByteSize)
+    public static void ReadRT3D<T>(RenderTexture rt, Texture3D tex) where T : struct
     {
-        var a = new NativeArray<byte>(rt.width * rt.height * rt.volumeDepth * pixelByteSize, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
+        var a = new NativeArray<T>(rt.width * rt.height * rt.volumeDepth, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
         AsyncGPUReadback.RequestIntoNativeArray(ref a, rt, 0, _ =>
         {
             tex.SetPixelData(a, 0);

@@ -48,10 +48,12 @@ Shader "Addition/Post-processing/NoisePreview"
 
             #define SEED 0xAC4B4C07
 
+            CBUFFER_START(UnityPerMaterial)
             float _Frequency;
             uint _Octaves;
             float _Persistence;
             float _Lacunarity;
+            CBUFFER_END
 
             float Simplex (float2 position)
             {
